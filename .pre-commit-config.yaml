@@ -1,0 +1,57 @@
+# Install once per clone: `pre-commit install` (installs both pre-commit and pre-push hooks).
+default_install_hook_types: [pre-commit, pre-push]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        exclude: \.bat$
+      - id: check-yaml
+      - id: check-xml
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-added-large-files
+        args: [--maxkb=512]
+      - id: detect-private-key
+
+  - repo: https://github.com/rbubley/mirrors-prettier
+    rev: v3.9.9
+    hooks:
+      - id: prettier
+        types_or: [markdown, yaml, json]
+
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+      - id: taplo-lint
+        # Syntax check only: the remote schema catalog is unreliable and needs network.
+        args: [--no-schema]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
+  - repo: local
+    hooks:
+      - id: spotless
+        name: spotless (ktlint format)
+        entry: ./gradlew spotlessApply --quiet
+        language: system
+        files: \.(kt|kts)$
+        pass_filenames: false
+      - id: detekt
+        name: detekt
+        entry: ./gradlew detekt --quiet
+        language: system
+        files: \.kt$
+        pass_filenames: false
+        stages: [pre-push]

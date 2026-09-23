@@ -1,0 +1,48 @@
+[versions]
+agp = "9.4.1"
+kotlin = "2.4.20"
+compose-bom = "2026.09.00"
+androidx-activity = "1.13.0"
+androidx-core = "1.19.0"
+androidx-lifecycle = "2.11.0"
+junit = "4.13.2"
+truth = "1.4.5"
+spotless = "8.10.2"
+ktlint = "1.8.0"
+detekt = "1.23.8"
+
+# Android SDK levels
+android-compileSdk = "37"
+android-targetSdk = "37"
+android-minSdk = "29"
+
+[libraries]
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+junit = { module = "junit:junit", version.ref = "junit" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+
+# Gradle plugins used by build-logic convention plugins
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
+# Convention plugins (build-logic)
+mobilelps-android-application = { id = "mobilelps.android.application" }
+mobilelps-android-library = { id = "mobilelps.android.library" }
+mobilelps-android-compose = { id = "mobilelps.android.compose" }
+mobilelps-jvm-library = { id = "mobilelps.jvm.library" }

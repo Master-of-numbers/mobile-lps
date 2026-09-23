@@ -67,3 +67,31 @@ flowchart TD
 
 - **Language:** Kotlin, native Android.
 - **UI:** Jetpack Compose.
+- **Build:** Gradle (Kotlin DSL) with a version catalog (`gradle/libs.versions.toml`) and convention plugins (`build-logic/`).
+- **Quality:** ktlint (via Spotless), Prettier (Markdown, YAML, JSON), taplo (TOML), detekt, Android Lint (warnings are errors), pre-commit hooks, GitHub Actions CI.
+
+## Development
+
+### Requirements
+
+- [mise](https://mise.jdx.dev/) — installs the pinned JDK and pre-commit from `.mise.toml`.
+- Android SDK. Point to it with `ANDROID_HOME` or `sdk.dir` in `local.properties` (Android Studio creates it automatically). Missing SDK platforms are downloaded by Gradle.
+
+Gradle is pinned by the wrapper (`./gradlew`), so it does not need to be installed.
+
+### Setup
+
+```sh
+mise run setup    # installs JDK + pre-commit, registers git hooks (formatting on commit, detekt on push)
+```
+
+Enable `mise activate` in your shell so the pinned JDK is picked up automatically inside the project.
+
+### Common tasks
+
+```sh
+./gradlew assembleDebug        # build debug APK
+./gradlew installDebug         # install on a connected device
+./gradlew spotlessApply        # format Kotlin sources
+./gradlew spotlessCheck detekt lint testDebugUnitTest   # everything CI checks
+```

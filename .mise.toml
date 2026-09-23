@@ -1,0 +1,10 @@
+# Pinned development tools. Run `mise run setup` after cloning.
+# Gradle itself is pinned by the wrapper (gradle/wrapper/gradle-wrapper.properties).
+
+[tools]
+java = "temurin-21.0.12+8.0.LTS"
+pre-commit = "4.6.2"
+
+[tasks.setup]
+description = "Install pinned tools and register git hooks (run once after cloning)"
+run = ["mise install", "pre-commit install"]

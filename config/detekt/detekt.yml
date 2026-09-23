@@ -1,0 +1,9 @@
+# Overrides on top of the default detekt config (buildUponDefaultConfig = true).
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ["Composable"]
+
+style:
+  UnusedPrivateMember:
+    ignoreAnnotated: ["Preview"]

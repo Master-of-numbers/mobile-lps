@@ -1,0 +1,7 @@
+# taplo formats and validates TOML files (version catalog, .mise.toml, this file).
+
+exclude = ["**/build/**", ".gradle/**", ".kotlin/**"]
+
+[formatting]
+indent_string = "  "
+column_width = 120

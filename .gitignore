@@ -7,6 +7,27 @@ Desktop.ini
 # Editors / IDEs
 .idea/
 .vscode/
+*.iml
 *.swp
 *.swo
 *~
+
+# Gradle
+.gradle/
+.kotlin/
+build/
+
+# Android
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.keystore
+*.jks
+
+# Local environment overrides
+mise.local.toml
+.mise.local.toml

@@ -1,0 +1,3 @@
+# Prettier formats Markdown, YAML and JSON. Kotlin is formatted by ktlint (Spotless), TOML by taplo.
+# Indentation and line endings come from .editorconfig.
+proseWrap: preserve
