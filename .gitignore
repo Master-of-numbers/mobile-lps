@@ -1,0 +1,12 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+.directory
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
