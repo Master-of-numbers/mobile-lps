@@ -32,3 +32,10 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "mobile-lps"
 
 include(":app")
+include(":core")
+include(":gnss")
+include(":lbs")
+include(":detector")
+include(":sources")
+include(":provider")
+include(":service")

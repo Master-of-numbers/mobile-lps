@@ -8,10 +8,10 @@ Keep navigation stable in areas affected by GNSS spoofing. Instead of building y
 
 ## How it works
 
-1. The service reads raw GNSS data from the Android location service.
-2. A detector checks the signal for signs of spoofing.
-3. If the signal is clean, GNSS coordinates are passed through as is.
-4. If spoofing is detected, the position is computed from other sources — cell towers (LBS), Wi-Fi access points and inertial navigation (IMU) — fused with sensor fusion algorithm (WIP).
+1. The service reads raw GNSS measurements from the Android location service and computes its own position from them (GPS L1 + Galileo E1, using broadcast ephemerides downloaded from BKG).
+2. A detector checks the signal for signs of spoofing: disagreement with the cell-tower position, satellites that cannot be above the horizon, time offset, position jumps, C/N0 and AGC anomalies.
+3. If the signal is clean, the GNSS position is published.
+4. If spoofing is detected, the position is computed from other sources — cell towers (LBS) and Wi-Fi access points via BeaconDB; inertial navigation (IMU) and sensor fusion are WIP.
 5. The resulting location is published via a mock location provider and consumed by navigation apps through the regular Android location API.
 
 ## Architecture
@@ -70,6 +70,18 @@ flowchart TD
 - **Build:** Gradle (Kotlin DSL) with a version catalog (`gradle/libs.versions.toml`) and convention plugins (`build-logic/`).
 - **Quality:** ktlint (via Spotless), Prettier (Markdown, YAML, JSON), taplo (TOML), detekt, Android Lint (warnings are errors), pre-commit hooks, GitHub Actions CI.
 
+## Usage
+
+1. Install the app and press **Start**, granting location (and on Android 13+ notification) permission.
+2. In Developer options select mobile-lps as **Select mock location app**. The status screen links there when it is needed.
+3. On Android 10–11 also enable Developer options → **Force full GNSS measurements**.
+
+The status screen shows the detector state, the published position and diagnostics for GNSS, cell towers and ephemerides.
+
+Optionally disable Developer options → **Wi-Fi scan throttling**: otherwise Android allows only 4 Wi-Fi scans per 2 minutes.
+
+**Privacy:** to compute the network position the app sends the IDs of visible cells and the MAC addresses (BSSIDs) of nearby Wi-Fi access points to [BeaconDB](https://beacondb.net/). Network names (SSIDs), access points marked `_nomap`/`_optout` and randomized MACs are never sent. Ephemerides are downloaded from BKG. The computed position is not sent anywhere.
+
 ## Development
 
 ### Requirements
@@ -94,4 +106,11 @@ Enable `mise activate` in your shell so the pinned JDK is picked up automaticall
 ./gradlew installDebug         # install on a connected device
 ./gradlew spotlessApply        # format Kotlin sources
 ./gradlew spotlessCheck detekt lint testDebugUnitTest   # everything CI checks
+```
+
+### Diagnostics on a connected phone (debug builds only)
+
+```sh
+adb shell dumpsys activity service dev.mobilelps/dev.mobilelps.service.LpsService   # full snapshot
+adb logcat -s LPS                                                                    # live timeline
 ```

@@ -1,0 +1,10 @@
+<resources>
+    <string name="lps_channel_name">Location proxy</string>
+    <string name="lps_notification_title">Location proxy is running</string>
+    <string name="lps_notification_stop">Stop</string>
+    <string name="lps_state_clean">GNSS clean · publishing GNSS</string>
+    <string name="lps_state_suspect">GNSS suspicious · publishing GNSS</string>
+    <string name="lps_state_spoofed">Spoofing detected · publishing cell position</string>
+    <string name="lps_state_no_gnss">No GNSS · publishing cell position</string>
+    <string name="lps_state_starting">Starting…</string>
+</resources>

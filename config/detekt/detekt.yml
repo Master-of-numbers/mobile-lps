@@ -1,9 +1,23 @@
 # Overrides on top of the default detekt config (buildUponDefaultConfig = true).
 
+complexity:
+  LongParameterList:
+    # Constructors wire dependencies by hand (no DI framework).
+    constructorThreshold: 10
+    functionThreshold: 8
+
 naming:
   FunctionNaming:
     ignoreAnnotated: ["Composable"]
 
 style:
+  MagicNumber:
+    ignoreEnums: true
+    # GNSS algorithms use coefficients straight from the interface specifications (IS-GPS-200, Galileo OS SIS ICD);
+    # naming each of them would hide the correspondence with the documents.
+    excludes: ["**/gnss/src/main/**", "**/test/**"]
+  ReturnCount:
+    max: 4
+    excludeGuardClauses: true
   UnusedPrivateMember:
     ignoreAnnotated: ["Preview"]
