@@ -9,7 +9,7 @@ kotlinx-coroutines = "1.11.0"
 kotlinx-serialization = "1.11.0"
 junit = "4.13.2"
 truth = "1.4.5"
-spotless = "8.10.2"
+spotless = "8.10.3"
 ktlint = "1.8.0"
 detekt = "1.23.8"
 
